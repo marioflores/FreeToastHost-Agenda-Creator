@@ -7,7 +7,6 @@ class PDFCreator
   
   def initialize(data)
     @agendaData = data
-    #puts @agendaData["Header"].to_a
   end
  
   def create
@@ -17,9 +16,6 @@ class PDFCreator
     officers = @agendaData["OfficersOrder"].to_a
     
     Prawn::Document.generate("ToastmasterAgenda.pdf") do
-  
-    #puts @agendaData["Header"].to_a
-    #puts header.inspect
           
     widths = {0 => 275, 1 => 125}
           
@@ -67,5 +63,3 @@ class PDFCreator
   end
 
 end
-
-#my_config = PDFCreator.new(agendaData)

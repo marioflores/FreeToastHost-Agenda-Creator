@@ -11,15 +11,11 @@ class RosterData
     self.set_http_request
     self.get_page
     self.get_roster_sections
-    #puts @currentAssignees.inspect
-    #puts @currentAssignees['PresidingOfficer']
-    #puts @currentAssignees
     return @currentAssignees
   end
   
   def set_http_request
     self.set_credentials(@currentRoster.duty_roster['UserName'], @currentRoster.duty_roster['Password'])
-    #self.set_headers(@currentRoster.duty_roster['URL'], @currentRoster.duty_roster['Date'])
     self.set_referer(@currentRoster.duty_roster['URL'], @currentRoster.duty_roster['Date'])
     self.set_url(@currentRoster.duty_roster['URL'], @currentRoster.duty_roster['Date'])
   end
@@ -42,7 +38,6 @@ class RosterData
   
   def get_page
     @page = @agent.get( @url, '', @referer )
-    #return @page
   end
   
   def get_roster_sections
@@ -55,7 +50,6 @@ class RosterData
   def get_meeting_roster_roles
     @form = @page.form_with(:action => 'roster.cgi')
     @currentRoster.roles.each_pair { |key, value| @currentAssignees[key] = @form.field_with(:name => value).value.sub(".", " ").titleize }
-    #@currentAssignees.each_pair { |key, value| puts key, value }
   end
   
   def get_officers_list
@@ -71,7 +65,6 @@ class RosterData
   def get_additional_roles
     @officersList = Hash.new
     @currentRoster.additional_roles.each_pair { |key, value| @currentAssignees[key] = self.get_officer_name(value) }
-    #@currentAssignees.each_pair { |key, value| puts key, value }
   end
   
   def get_officer_name(role)
